@@ -10,7 +10,7 @@ Ez a játék egy klasszikus társajáték élményét nyújtja egy játékos for
 - Az ablak közepén megjelenik a játéktábla
 - Jobb felső sarokban megjelenik a táblához tartozó jelmagyarázat
 - Jobb alsó sarokban egy dobókocka jelenik meg, az alatta található gomb lenyomásával lehet dobni és lépni
-- A jobb oldalt középen található ablakban a játékos álal meghozandó döntések ugranak fel 
+- A jobb oldalt középen található ablakban a játékos álal meghozandó döntések ugranak fel és kommunikál is vele 
 
 
 ## Játéktábla felépítése
@@ -27,7 +27,7 @@ Ez a játék egy klasszikus társajáték élményét nyújtja egy játékos for
 - Fehér: Üres mező
 - Piros: Következő dobásnál visszafele kell lépni
 - Zöld: Következő dobásnál dupla annyit kell lépni
-- Lila: A játékos választhat hog előre vagy hátra akar menni következő dobásnál
+- Lila: A játékos választhat hogy előre vagy hátra akar menni következő dobásnál
 - Narancs: Szám kitaláló
 - Citrom: Memória játék
 - Barna: Verjük a vakondot
@@ -44,7 +44,7 @@ Ez a játék egy klasszikus társajáték élményét nyújtja egy játékos for
 - 18 kiterített kártyalap között 6 pár van elrejtve
 - A játékra 30 mp áll rendelkezésre
 - Ahány párat megtalál a játékos annyit mehet előre kockadobás helyett
-- Ha egyet sem talál eg akkor a kockadobás értékének megfelelően kell hátra lépni
+- Ha egyet sem talál egy akkor a kockadobás értékének megfelelően kell hátra lépni
 
 **Verjük a vakondot**
 

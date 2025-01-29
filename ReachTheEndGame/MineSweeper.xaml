@@ -1,0 +1,28 @@
+﻿<Window x:Class="ReachTheEndGame.MineSweeper"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ReachTheEndGame"
+        mc:Ignorable="d"
+        Title="MineSweeper" Height="450" Width="320" ResizeMode="NoResize">
+    <Window.Resources>
+        <Style TargetType="Label" x:Key="GameGridStyle">
+            <Setter Property="Background" Value="#FF949494"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="2,2,2,2"/>
+        </Style>
+    </Window.Resources>
+    <Grid x:Name="grdBase" Background="#FF949494">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Label x:Name="lblBombs">.</Label>
+        <Grid Grid.Row="1" Height="300" Width="{Binding ElementName=grdGame,Path=Height}" x:Name="grdGame" Background="Gray">
+        </Grid>
+    </Grid>
+</Window>

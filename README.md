@@ -2,7 +2,7 @@
 
 Ez a játék egy klasszikus társajáték élményét nyújtja egy játékos formában.
 
-**Cél:**  Eljutni a start mezőről a célba végére.
+**Cél:**  Eljutni a start mezőről a célba.
 
 ## UI felépítése 
 

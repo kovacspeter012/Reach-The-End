@@ -20,11 +20,18 @@ namespace ReachTheEndGame
     public partial class MineSweeper : Window
     {
         List<MineGameGrid> Bombs { get; set; }
-        bool IsGameStarted { get; set; } = false;
+        List<MineGameGrid> Flags { get; set; }
+        List<MineGameGrid> FlaggedBombs => Bombs.Where(e=>e.IsFlagged).ToList();
+        List<MineGameGrid> NotFlaggedBombs => Bombs.Where(e=>!e.IsFlagged).ToList();
+
         MineGameGrid[] MineGameGrids;
+
+        bool IsGameStarted { get; set; } = false;
+
         public MineSweeper()
         {
             Bombs = new();
+            Flags = new();
             MineGameGrids = new MineGameGrid[64];
 
             InitializeComponent();
@@ -52,24 +59,68 @@ namespace ReachTheEndGame
                     l.PreviewMouseDown += lblClick;
                 }
             }
+            lblBombs.Content = $"Bombák száma: 10";
+            lblFlags.Content = $"Jelölők száma: 10";
         }
 
         private void lblClick(object sender, MouseButtonEventArgs e)
         {
+            MouseButton b = e.ChangedButton;
+
             if (sender is not Label) return;
             Label label = (Label)sender;
 
             MineGameGrid? mineGameGrid = MineGameGrids.FirstOrDefault(e=>e.Label == label);
             if (mineGameGrid is null) return;
 
-            if (IsGameStarted)
+            //jobb egérgomb
+            if(b == MouseButton.Right)
             {
-                
+                if(IsGameStarted && !mineGameGrid.IsRevealed)
+                {
+                    if(mineGameGrid.IsFlagged)
+                    {
+                        mineGameGrid.IsFlagged = !mineGameGrid.IsFlagged;
+                        Flags.Remove(mineGameGrid);
+                    }
+                    else if(Flags.Count < Bombs.Count)
+                    {
+                        mineGameGrid.IsFlagged = !mineGameGrid.IsFlagged;
+                        Flags.Add(mineGameGrid);
+                    }
+                    lblFlags.Content = $"Jelölők száma: {Bombs.Count - Flags.Count}";
+                    MineGameLogic.ShowValue(mineGameGrid);
+                }
+                return;
             }
-            else
+
+            //bal egérgomb
+
+            if (!IsGameStarted)
             {
-                MineGameLogic.GenerateBombs(MineGameGrids,Bombs,mineGameGrid.Index);
+                MineGameLogic.GenerateBombs(MineGameGrids, Bombs, mineGameGrid.Index, 10);
+                MineGameLogic.SetBombsAround(MineGameGrids, Bombs);
+
+                IsGameStarted = true;
             }
+            if (mineGameGrid.IsFlagged) return;
+
+            mineGameGrid.IsRevealed = true;
+            if (mineGameGrid.IsBomb)
+            {
+                int explodedBombs = MineGameLogic.GetActiveBombsCount(Bombs);
+                lblBombs.Content = $"Bumm: {explodedBombs} bombs";
+            }
+            if (mineGameGrid.BombsAround == 0)
+            {
+                MineGameLogic.ShowZeroesAround(MineGameGrids,mineGameGrid);
+            }
+
+            foreach (var l in MineGameGrids)
+            {
+                if(l.IsRevealed) MineGameLogic.ShowValue(l);
+            }
+            //MineGameLogic.ShowCheat(MineGameGrids);
         }
 
     }

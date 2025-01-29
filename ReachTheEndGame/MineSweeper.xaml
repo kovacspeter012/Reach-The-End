@@ -13,16 +13,20 @@
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
             <Setter Property="VerticalAlignment" Value="Stretch"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontSize" Value="20"/>
             <Setter Property="Margin" Value="2,2,2,2"/>
         </Style>
     </Window.Resources>
     <Grid x:Name="grdBase" Background="#FF949494">
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Label x:Name="lblBombs">.</Label>
-        <Grid Grid.Row="1" Height="300" Width="{Binding ElementName=grdGame,Path=Height}" x:Name="grdGame" Background="Gray">
+        <Label Grid.Row="0" x:Name="lblBombs">.</Label>
+        <Label Grid.Row="1" x:Name="lblFlags">.</Label>
+        <Grid Grid.Row="2" Height="300" Width="{Binding ElementName=grdGame,Path=Height}" x:Name="grdGame" Background="Gray">
         </Grid>
     </Grid>
 </Window>

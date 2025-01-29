@@ -61,3 +61,7 @@ Ez a játék egy klasszikus társajáték élményét nyújtja egy játékos for
 - Egy bomba helyes megjelölése esetén hatástalanítottnak számít
 - Bomba hibás felfedése esetén minden nem hatástalanított bomba robban, ezek számának megfelelő mezőt kell hátra lépni
 - Minden bomba hatástalanítása esetén a következő dobás értékénél 6-tal többet léphet a játékos
+
+## Játék vázlata
+
+ ![alt text](plan.png)

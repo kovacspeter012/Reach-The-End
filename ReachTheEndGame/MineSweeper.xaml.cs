@@ -22,11 +22,13 @@ namespace ReachTheEndGame
         List<MineGameGrid> Bombs { get; set; }
         List<MineGameGrid> Flags { get; set; }
         List<MineGameGrid> FlaggedBombs => Bombs.Where(e=>e.IsFlagged).ToList();
-        List<MineGameGrid> NotFlaggedBombs => Bombs.Where(e=>!e.IsFlagged).ToList();
+        List<MineGameGrid> ActiveBombs => Bombs.Where(e=>!e.IsFlagged).ToList();
 
         MineGameGrid[] MineGameGrids;
-
         bool IsGameStarted { get; set; } = false;
+
+        public bool IsGameWon { get; private set; }
+        public int ActiveBombsCount => Bombs.Where(e=>!e.IsFlagged).Count();
 
         public MineSweeper()
         {
@@ -74,7 +76,7 @@ namespace ReachTheEndGame
             if (mineGameGrid is null) return;
 
             //jobb egérgomb
-            if(b == MouseButton.Right)
+            if (b == MouseButton.Right)
             {
                 if(IsGameStarted && !mineGameGrid.IsRevealed)
                 {
@@ -90,6 +92,12 @@ namespace ReachTheEndGame
                     }
                     lblFlags.Content = $"Jelölők száma: {Bombs.Count - Flags.Count}";
                     MineGameLogic.ShowValue(mineGameGrid);
+
+                    if (MineGameGrids.All(e => (e.IsBomb && e.IsFlagged && !e.IsRevealed) || (!e.IsBomb && !e.IsFlagged && e.IsRevealed)))
+                    {
+                        IsGameWon = true;
+                        this.Close();
+                    }
                 }
                 return;
             }
@@ -118,9 +126,20 @@ namespace ReachTheEndGame
 
             foreach (var l in MineGameGrids)
             {
-                if(l.IsRevealed) MineGameLogic.ShowValue(l);
+                if (l.IsRevealed) MineGameLogic.ShowValue(l);
             }
-            //MineGameLogic.ShowCheat(MineGameGrids);
+
+            if (MineGameGrids.Where(e => e.IsBomb && e.IsRevealed).Any())
+            {
+                IsGameWon = false;
+                this.Close();
+            }
+            if (MineGameGrids.All(e => (e.IsBomb && e.IsFlagged && !e.IsRevealed) || (!e.IsBomb && !e.IsFlagged && e.IsRevealed)))
+            {
+                IsGameWon = true;
+                this.Close();
+            }
+
         }
 
     }

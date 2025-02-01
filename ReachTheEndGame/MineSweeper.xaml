@@ -14,7 +14,7 @@
             <Setter Property="VerticalAlignment" Value="Stretch"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
             <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="FontSize" Value="18"/>
             <Setter Property="Margin" Value="2,2,2,2"/>
         </Style>
     </Window.Resources>
@@ -26,7 +26,7 @@
         </Grid.RowDefinitions>
         <Label Grid.Row="0" x:Name="lblBombs">.</Label>
         <Label Grid.Row="1" x:Name="lblFlags">.</Label>
-        <Grid Grid.Row="2" Height="300" Width="{Binding ElementName=grdGame,Path=Height}" x:Name="grdGame" Background="Gray">
+        <Grid Grid.Row="2" Height="304" Width="{Binding ElementName=grdGame,Path=Height}" x:Name="grdGame" VerticalAlignment="Bottom" Background="Gray">
         </Grid>
     </Grid>
 </Window>

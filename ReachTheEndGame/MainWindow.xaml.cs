@@ -19,6 +19,7 @@ namespace ReachTheEndGame
         public MainWindow()
         {
             InitializeComponent();
+            new MineSweeper().ShowDialog();
         }
     }
 }

@@ -26,6 +26,8 @@ namespace ReachTheEndGame
 
     static class MineGameLogic
     {
+        public static string Flag = "🏴";
+        public static string Bomb = "💣";
         public static void GenerateBombs(MineGameGrid[] gameGrids, List<MineGameGrid> bombGrids, int clickIndex, int bombCount)
         {
             var places = Enumerable.Range(0, 64).ToList();
@@ -92,7 +94,11 @@ namespace ReachTheEndGame
         {
             if (!gameGrid.IsRevealed)
             {
-                if (gameGrid.IsFlagged) gameGrid.Label.Content = "🏳️";
+                if (gameGrid.IsFlagged)
+                {
+                    gameGrid.Label.Content = "🏴";
+                    gameGrid.Label.Foreground = Brushes.Red;
+                }
                 else gameGrid.Label.Content = "";
 
                 return;
@@ -101,6 +107,7 @@ namespace ReachTheEndGame
             if (gameGrid.IsBomb)
             {
                 gameGrid.Label.Content = "💣";
+                gameGrid.Label.Foreground = Brushes.Black;
             }
             else
             {

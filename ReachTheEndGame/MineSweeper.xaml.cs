@@ -56,13 +56,18 @@ namespace ReachTheEndGame
                     Grid.SetRow(l, i);
                     Grid.SetColumn(l, j);
 
+                    if(i == 0)
+                    {
+                        l.Margin = new Thickness(2,4,2,2);
+                    }
+
                     MineGameGrids[i*8+j] = new MineGameGrid(l,i*8+j);
 
                     l.PreviewMouseDown += lblClick;
                 }
             }
-            lblBombs.Content = $"Bombák száma: 10";
-            lblFlags.Content = $"Jelölők száma: 10";
+            lblBombs.Content = $"{MineGameLogic.Bomb}\n10";
+            lblFlags.Content = $"{MineGameLogic.Flag}\n10";
         }
 
         private void lblClick(object sender, MouseButtonEventArgs e)
@@ -90,7 +95,7 @@ namespace ReachTheEndGame
                         mineGameGrid.IsFlagged = !mineGameGrid.IsFlagged;
                         Flags.Add(mineGameGrid);
                     }
-                    lblFlags.Content = $"Jelölők száma: {Bombs.Count - Flags.Count}";
+                    lblFlags.Content = $"{MineGameLogic.Flag}\n{new string(' ', Bombs.Count - Flags.Count < 10 ? 1 : 0 )}{Bombs.Count - Flags.Count}";
                     MineGameLogic.ShowValue(mineGameGrid);
 
                     if (MineGameGrids.All(e => (e.IsBomb && e.IsFlagged && !e.IsRevealed) || (!e.IsBomb && !e.IsFlagged && e.IsRevealed)))
@@ -126,8 +131,17 @@ namespace ReachTheEndGame
 
             foreach (var l in MineGameGrids)
             {
-                if (l.IsRevealed) MineGameLogic.ShowValue(l);
+                if (l.IsRevealed)
+                {
+                    MineGameLogic.ShowValue(l);
+                    if (l.IsFlagged)
+                    {
+                        l.IsFlagged = false;
+                        Flags.Remove(l);
+                    }
+                }
             }
+            lblFlags.Content = $"{MineGameLogic.Flag}\n{new string(' ', Bombs.Count - Flags.Count < 10 ? 1 : 0)}{Bombs.Count - Flags.Count}";
 
             if (MineGameGrids.Where(e => e.IsBomb && e.IsRevealed).Any())
             {

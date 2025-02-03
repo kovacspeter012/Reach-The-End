@@ -53,9 +53,14 @@ namespace ReachTheEndGame
 
         private void tbGuess_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            Regex _regex = new Regex("[^0-9]+");
-            e.Handled = Regex.IsMatch(e.Text);
+            foreach (var ch in e.Text)
+            {
+                if (!Char.IsDigit(ch))
+                {
+                    e.Handled = true;
+                    break;
+                }
+            }
         }
-
     }
 }

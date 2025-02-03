@@ -5,8 +5,31 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ReachTheEndGame"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="Reach The End" Height="450" Width="800">
+    <Grid x:Name="grdBase" Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel x:Name="stpSigns" Grid.Row="0" Grid.Column="1" Orientation="Vertical">
+            
+        </StackPanel>
+        <StackPanel x:Name="stpFeedback" Grid.Row="1" Grid.Column="1" Orientation="Vertical">
 
+        </StackPanel>
+        <Canvas x:Name="cnvDie" Grid.Row="2" Grid.Column="1">
+            <Rectangle x:Name="GameDie" Width="100" Height="100" Canvas.Left="20" Canvas.Top="20" Fill="#FFA5E881" RadiusX="15" RadiusY="15">
+                
+            </Rectangle>
+        </Canvas>
+
+        <Canvas x:Name="cnvGame" Grid.Row="0" Grid.Column="0" Grid.RowSpan="3">
+            
+        </Canvas>
     </Grid>
 </Window>

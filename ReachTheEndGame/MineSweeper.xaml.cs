@@ -25,9 +25,9 @@ namespace ReachTheEndGame
         List<MineGameGrid> ActiveBombs => Bombs.Where(e=>!e.IsFlagged).ToList();
 
         MineGameGrid[] MineGameGrids;
-        bool IsGameStarted { get; set; } = false;
-
-        public bool IsGameWon { get; private set; }
+        public bool IsGameStarted { get; private set; } = false;
+        public bool IsGameWon { get; private set; } = false;
+        public bool IsGameEnded { get; private set; } = false;
         public int ActiveBombsCount => Bombs.Where(e=>!e.IsFlagged).Count();
 
         public MineSweeper()
@@ -70,6 +70,25 @@ namespace ReachTheEndGame
             lblFlags.Content = $"{MineGameLogic.Flag}\n10";
         }
 
+        private bool CheckGameWin() => MineGameGrids.All(e => (e.IsBomb && e.IsFlagged && !e.IsRevealed) || (!e.IsBomb && !e.IsFlagged && e.IsRevealed));
+        private bool CheckGameLose() => MineGameGrids.Where(e => e.IsBomb && e.IsRevealed).Any();
+        private void ExecuteGameWin()
+        {
+            IsGameEnded = true;
+            IsGameWon = true;
+
+            MessageBox.Show("Hatástalanítottál minden bombát!", "Nyertél!", MessageBoxButton.OK);
+            this.Close();
+        }
+        private void ExecuteGameLose()
+        {
+            IsGameEnded = true;
+            IsGameWon = false;
+
+            MessageBox.Show($"Felrobbantál {ActiveBombsCount} bomba által!", "Vesztettél!", MessageBoxButton.OK);
+            this.Close();
+        }
+
         private void lblClick(object sender, MouseButtonEventArgs e)
         {
             MouseButton b = e.ChangedButton;
@@ -79,6 +98,8 @@ namespace ReachTheEndGame
 
             MineGameGrid? mineGameGrid = MineGameGrids.FirstOrDefault(e=>e.Label == label);
             if (mineGameGrid is null) return;
+
+            if (IsGameEnded) return;
 
             //jobb egérgomb
             if (b == MouseButton.Right)
@@ -98,10 +119,9 @@ namespace ReachTheEndGame
                     lblFlags.Content = $"{MineGameLogic.Flag}\n{new string(' ', Bombs.Count - Flags.Count < 10 ? 1 : 0 )}{Bombs.Count - Flags.Count}";
                     MineGameLogic.ShowValue(mineGameGrid);
 
-                    if (MineGameGrids.All(e => (e.IsBomb && e.IsFlagged && !e.IsRevealed) || (!e.IsBomb && !e.IsFlagged && e.IsRevealed)))
+                    if (CheckGameWin())
                     {
-                        IsGameWon = true;
-                        this.Close();
+                        ExecuteGameWin();
                     }
                 }
                 return;
@@ -122,7 +142,7 @@ namespace ReachTheEndGame
             if (mineGameGrid.IsBomb)
             {
                 int explodedBombs = MineGameLogic.GetActiveBombsCount(Bombs);
-                lblBombs.Content = $"Bumm: {explodedBombs} bombs";
+                //lblBombs.Content = $"Bumm: {explodedBombs} bombs";
             }
             if (mineGameGrid.BombsAround == 0)
             {
@@ -143,15 +163,13 @@ namespace ReachTheEndGame
             }
             lblFlags.Content = $"{MineGameLogic.Flag}\n{new string(' ', Bombs.Count - Flags.Count < 10 ? 1 : 0)}{Bombs.Count - Flags.Count}";
 
-            if (MineGameGrids.Where(e => e.IsBomb && e.IsRevealed).Any())
+            if (CheckGameLose())
             {
-                IsGameWon = false;
-                this.Close();
+                ExecuteGameLose();
             }
-            if (MineGameGrids.All(e => (e.IsBomb && e.IsFlagged && !e.IsRevealed) || (!e.IsBomb && !e.IsFlagged && e.IsRevealed)))
+            if (CheckGameWin())
             {
-                IsGameWon = true;
-                this.Close();
+                ExecuteGameWin();
             }
 
         }

@@ -5,12 +5,37 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ReachTheEndGame"
         mc:Ignorable="d"
-        Title="MemoryGameWindow" Height="450" Width="800">
-    <Grid>
-        <Label Name="lblTimer" Content="Ennyi mp van vissza: 30"/>
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-    </Grid>
+        Title="MemoryGameWindow" Height="500" Width="800">
+    <Border BorderBrush="Black" Background="LightGray" BorderThickness="3" Margin="6,6,6,6">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="150"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Label Name="lblTimer" Content="Ennyi mp van vissza: 30"/>
+                <WrapPanel Grid.Row="1">
+                    <Border BorderBrush="Black" BorderThickness="3" Margin="5,5,5,5">
+                        <Image Source="Images/MemoryGame/Cardback.png" Width="79"/>
+                    </Border>
+                    <Border BorderBrush="Black" Background="LightGray" BorderThickness="3" Margin="5,5,5,5">
+                        <Image Source="Images/MemoryGame/Pic1.png" Width="79"/>
+                    </Border>
+
+                </WrapPanel>
+                
+                
+            </Grid>
+        </Grid>
+    </Border>
+    
+    
+
+
 </Window>

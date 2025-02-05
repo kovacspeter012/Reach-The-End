@@ -29,6 +29,7 @@ namespace ReachTheEndGame
             aTimer.Interval = TimeSpan.FromSeconds(1);
             aTimer.Tick += OnTimedEvent;
             aTimer.Start();
+
         }
 
         public void OnTimedEvent(object source, EventArgs e)

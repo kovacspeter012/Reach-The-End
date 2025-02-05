@@ -19,6 +19,9 @@ namespace ReachTheEndGame
         public MainWindow()
         {
             InitializeComponent();
+            Loaded += (s, e) => Die._s = FindResource("DieButtonStyle") as Style;
+            rtgDie.Loaded += (s,e) => Die.CenterDie(cnvDie, rtgDie);
+            rtgDie.Loaded += (s, e) => Die.GenerateDieButtons(cnvDie);
         }
     }
 }

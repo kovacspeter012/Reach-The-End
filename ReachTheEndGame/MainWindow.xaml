@@ -5,7 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ReachTheEndGame"
         mc:Ignorable="d"
-        Title="Reach The End" Height="450" Width="800">
+        Title="Reach The End" Height="660" Width="1000" ResizeMode="NoResize">
+    <Window.Resources>
+        <Style TargetType="Border" x:Key="MainBorderStyle">
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="Background" Value="LightGray"/>
+        </Style>
+        <Style TargetType="Ellipse" x:Key="DieButtonStyle">
+            <Setter Property="Width" Value="15"/>
+            <Setter Property="Height" Value="15"/>
+            <Setter Property="Fill" Value="White"/>
+        </Style>
+    </Window.Resources>
     <Grid x:Name="grdBase" Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -16,20 +29,38 @@
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <StackPanel x:Name="stpSigns" Grid.Row="0" Grid.Column="1" Orientation="Vertical">
-            
-        </StackPanel>
-        <StackPanel x:Name="stpFeedback" Grid.Row="1" Grid.Column="1" Orientation="Vertical">
+        <Border Style="{StaticResource MainBorderStyle}" Grid.Row="0" Grid.Column="1">
+            <StackPanel x:Name="stpSigns" Orientation="Vertical">
+                <local:SignsUC Text="Üres mező" Source="Images/Main/white.png"/>
+                <local:SignsUC Text="Következő dobásnál visszafelé kell lépni" Source="Images/Main/red.png" />
+                <local:SignsUC Text="Következő dobásnál dupla annyit kell lépni" Source="Images/Main/green.png" />
+                <local:SignsUC Text="Következő dobásnál a játékos választhat, hogy előre vagy hátra szeretne lépni" Source="Images/Main/purple.png" />
+                <local:SignsUC Text="Szám kitaláló játék" Source="Images/Main/orange.png"/>
+                <local:SignsUC Text="Memória játék" Source="Images/Main/yellow.png"/>
+                <local:SignsUC Text="Csapd le a vakondot! játék" Source="Images/Main/brown.png"/>
+                <local:SignsUC Text="Aknakereső játék" Source="Images/Main/blue.png"/>
 
-        </StackPanel>
-        <Canvas x:Name="cnvDie" Grid.Row="2" Grid.Column="1">
-            <Rectangle x:Name="GameDie" Width="100" Height="100" Canvas.Left="20" Canvas.Top="20" Fill="#FFA5E881" RadiusX="15" RadiusY="15">
-                
-            </Rectangle>
-        </Canvas>
+            </StackPanel>
+        </Border>
+        <Border Style="{StaticResource MainBorderStyle}" Grid.Row="1" Grid.Column="1">
+            <StackPanel x:Name="stpFeedback" Orientation="Vertical">
 
-        <Canvas x:Name="cnvGame" Grid.Row="0" Grid.Column="0" Grid.RowSpan="3">
-            
-        </Canvas>
+            </StackPanel>
+        </Border>
+        <Border Style="{StaticResource MainBorderStyle}" Grid.Row="2" Grid.Column="1">
+            <Canvas x:Name="cnvDie" >
+                <Rectangle x:Name="rtgDie" Width="100" Height="100" Stroke="Black" StrokeThickness="3" Fill="#FFA5E881" RadiusX="15" RadiusY="15" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <!--<Ellipse x:Name="GameDieB0" Style="{StaticResource DieButtonStyle}" Canvas.Left="144" Canvas.Top="85" HorizontalAlignment="Center" VerticalAlignment="Center"/>-->
+
+
+            </Canvas>
+        </Border>
+
+        <Border Style="{StaticResource MainBorderStyle}" Grid.Row="0" Grid.Column="0" Grid.RowSpan="3">
+            <Canvas x:Name="cnvGame">
+
+            </Canvas>
+        </Border>
+
     </Grid>
 </Window>

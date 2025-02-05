@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -16,15 +15,15 @@ using System.Windows.Shapes;
 namespace ReachTheEndGame
 {
     /// <summary>
-    /// Interaction logic for TestWindow.xaml
+    /// Interaction logic for NumberGuessWindow.xaml
     /// </summary>
-    public partial class TestWindow : Window
+    public partial class NumberGuessWindow : Window
     {
         NumberGuess GuessedNumber = new NumberGuess(new Random().Next(1, 101));
-        public TestWindow()
+        public NumberGuessWindow()
         {
             InitializeComponent();
-            
+
         }
 
         private void btnGuess_Click(object sender, RoutedEventArgs e)
@@ -47,7 +46,7 @@ namespace ReachTheEndGame
             }
             else if (feedback == "lose")
             {
-                lblGuess.Content = "Kitaláltad a számot de sajnos túl sok lépésből!";
+                lblGuess.Content = "Kitaláltad a számot de sajnos\ntúl sok lépésből!";
             }
         }
 

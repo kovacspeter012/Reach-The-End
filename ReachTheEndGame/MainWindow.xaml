@@ -43,9 +43,11 @@
             </StackPanel>
         </Border>
         <Border Style="{StaticResource MainBorderStyle}" Grid.Row="1" Grid.Column="1">
-            <StackPanel x:Name="stpFeedback" Orientation="Vertical">
+            <ScrollViewer x:Name="scvFeedback" CanContentScroll="True">
+                <DockPanel x:Name="dcpFeedback" LastChildFill="True" ScrollViewer.CanContentScroll="True" HorizontalAlignment="Stretch">
 
-            </StackPanel>
+                </DockPanel>
+            </ScrollViewer>
         </Border>
         <Border Style="{StaticResource MainBorderStyle}" Grid.Row="2" Grid.Column="1">
             <Canvas x:Name="cnvDie" >

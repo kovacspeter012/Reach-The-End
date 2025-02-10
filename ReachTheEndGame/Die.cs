@@ -12,6 +12,7 @@ namespace ReachTheEndGame
     public static class Die
     {
         public static Style? _s;
+        public static Ellipse[] DieButtons = new Ellipse[9];
         public static int Throw()
         {
             Random rnd = new Random();
@@ -28,6 +29,8 @@ namespace ReachTheEndGame
                     Canvas.SetLeft(l, (cnv.ActualWidth - l.Width) / 2 + i*30);
                     Canvas.SetTop(l, (cnv.ActualHeight - l.Height) / 2 + j*30);
                     l.Visibility = Visibility.Hidden;
+
+                    DieButtons[(i + 1) * 3 + (j + 1)] = l;
                 }
             }
         }
@@ -35,6 +38,51 @@ namespace ReachTheEndGame
         {
             Canvas.SetLeft(die, (cnv.ActualWidth - die.Width) / 2);
             Canvas.SetTop(die, (cnv.ActualHeight - die.Height) / 2);
+        }
+
+        public static void DisplayDie(Rectangle die, int num)
+        {
+            for(int i = 0; i < 9; i++)
+            {
+                DieButtons[i].Visibility = Visibility.Hidden;
+            }
+            switch (num)
+            {
+                case 1:
+                    DieButtons[4].Visibility = Visibility.Visible;
+                    return;
+                case 2:
+                    DieButtons[2].Visibility = Visibility.Visible;
+                    DieButtons[6].Visibility = Visibility.Visible;
+                    return;
+                case 3:
+                    DieButtons[2].Visibility = Visibility.Visible;
+                    DieButtons[4].Visibility = Visibility.Visible;
+                    DieButtons[6].Visibility = Visibility.Visible;
+                    return;
+                case 4:
+                    DieButtons[0].Visibility = Visibility.Visible;
+                    DieButtons[2].Visibility = Visibility.Visible;
+                    DieButtons[6].Visibility = Visibility.Visible;
+                    DieButtons[8].Visibility = Visibility.Visible;
+                    return;
+                case 5:
+                    DieButtons[0].Visibility = Visibility.Visible;
+                    DieButtons[2].Visibility = Visibility.Visible;
+                    DieButtons[4].Visibility = Visibility.Visible;
+                    DieButtons[6].Visibility = Visibility.Visible;
+                    DieButtons[8].Visibility = Visibility.Visible;
+                    return;
+                case 6:
+                    DieButtons[0].Visibility = Visibility.Visible;
+                    DieButtons[1].Visibility = Visibility.Visible;
+                    DieButtons[2].Visibility = Visibility.Visible;
+                    DieButtons[7].Visibility = Visibility.Visible;
+                    DieButtons[6].Visibility = Visibility.Visible;
+                    DieButtons[8].Visibility = Visibility.Visible;
+                    return;
+
+            }
         }
     }
 }

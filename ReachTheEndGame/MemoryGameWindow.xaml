@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ReachTheEndGame"
         mc:Ignorable="d"
-        Title="MemoryGameWindow" Height="500" Width="800">
+        Title="MemoryGameWindow" Height="550" Width="800">
     <Border BorderBrush="Black" Background="LightGray" BorderThickness="3" Margin="6,6,6,6">
         <Grid>
             <Grid.RowDefinitions>

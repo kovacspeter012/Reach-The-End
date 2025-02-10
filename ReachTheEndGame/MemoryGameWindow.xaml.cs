@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Timers;
 using System.Windows.Threading;
+using System.IO;
 
 namespace ReachTheEndGame
 {
@@ -29,6 +30,42 @@ namespace ReachTheEndGame
             aTimer.Interval = TimeSpan.FromSeconds(1);
             aTimer.Tick += OnTimedEvent;
             aTimer.Start();
+
+            Loaded += (sender, e) =>
+            {
+                test.Content = Directory.GetCurrentDirectory();
+                int i = 1;
+                Directory.GetFiles($"{Directory.GetCurrentDirectory()}\\Images\\MemoryGame", "*png").ToList().ForEach(file =>
+                {
+                    var brd = new Border()
+                    {
+                        Name = $"bCard{i}",
+                        BorderBrush = Brushes.Black,
+                        BorderThickness = new Thickness(3),
+                        Margin = new Thickness(5),
+                    };
+                    var img = new Image()
+                    {
+                        Name = $"iCard{i}",
+                        Width = 80,
+                        Source = new BitmapImage(new Uri(file))
+                    };
+                    brd.Child = img;
+                    if (i < 7)
+                    {
+                        wpFirstSix.Children.Add(brd);
+                    }
+                    else if (i < 13)
+                    {
+                        wpSecondSix.Children.Add(brd);
+                    }
+                    else
+                    {
+                        wpThirdSix.Children.Add(brd);
+                    }
+                    i++;
+                });
+            };
 
         }
 

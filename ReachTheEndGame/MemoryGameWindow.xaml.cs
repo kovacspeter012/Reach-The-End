@@ -32,7 +32,15 @@ namespace ReachTheEndGame
             InitializeComponent();
             DispatcherTimer aTimer = new DispatcherTimer();
             aTimer.Interval = TimeSpan.FromSeconds(1);
-            aTimer.Tick += OnTimedEvent;
+            aTimer.Tick += (sender, e) =>
+            {
+                timeLeft -= 1;
+                lblTimer.Content = $"Ennyi mp van vissza: {timeLeft}";
+                if (timeLeft < 1)
+                {
+                    aTimer.Stop();
+                }
+            };
             aTimer.Start();
 
             Loaded += (sender, e) =>
@@ -60,7 +68,7 @@ namespace ReachTheEndGame
                     Name = $"iCard{i}",
                     Width = 80,
                     Height = 80,
-                    Source = new BitmapImage(new Uri(item.BackImage))
+                    Source = new BitmapImage(new Uri(item.BackImage)),
                 };
                 brd.Child = img;
                 if (i < 7)
@@ -108,13 +116,5 @@ namespace ReachTheEndGame
             }
             cards = notShuffledCards.OrderBy(x => Guid.NewGuid()).ToList();
         }
-
-        public void OnTimedEvent(object source, EventArgs e)
-        {
-            timeLeft -= 1;
-            lblTimer.Content = $"Ennyi mp van vissza: {timeLeft}";
-        }
-
-        
     }
 }

@@ -19,7 +19,7 @@
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <Label Name="lblTimer" Content="Ennyi mp van vissza: 30"/>
+                <Label Name="lblTimer" Content="Ennyi mp van vissza: 30" FontSize="20"/>
                 <WrapPanel Grid.Row="1" Name="wpFirstSix" HorizontalAlignment="Center">
                     
                 </WrapPanel>
@@ -31,7 +31,19 @@
                 </WrapPanel>
             </Grid>
             <Grid Grid.Row="1">
-                <Label Name="test"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" FontSize="14">
+                        <Bold>Feladat:</Bold><LineBreak/>Találd meg a 6 elrejtett párt időn belül!<LineBreak/>Van olyan kép ami csak egyszer szerepel.
+                    </TextBlock>
+                    <Label Grid.Column="1" Content="Ennyi párt találtál meg:" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="20"/>
+                    <Label Name="lblFountPairsCount" Grid.Column="2" Content="3" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="20"/>
+
+                </Grid>
             </Grid>
         </Grid>
     </Border>

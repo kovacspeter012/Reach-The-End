@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using System.Timers;
 using System.Windows.Threading;
 using System.IO;
+using System.Reflection;
 
 namespace ReachTheEndGame
 {
@@ -41,6 +42,7 @@ namespace ReachTheEndGame
                 if (timeLeft < 1)
                 {
                     aTimer.Stop();
+
                 }
             };
             aTimer.Start();
@@ -75,9 +77,12 @@ namespace ReachTheEndGame
                 ImageRef.Add(item.Id, img);
                 img.MouseLeftButtonDown += (sender, e) =>
                 {
-                    img.Source = new BitmapImage(new Uri(item.FrontImage));
-                    item.IsFlipped = true;
-                    CheckForPair();
+                    if (item.IsFound == false)
+                    {
+                        img.Source = new BitmapImage(new Uri(item.FrontImage));
+                        item.IsFlipped = true;
+                        CheckForPair();
+                    }  
                 };
                 brd.Child = img;
                 if (i < 7)
@@ -95,51 +100,44 @@ namespace ReachTheEndGame
                 i++;
             }
         }
-
         async private void CheckForPair()
         {
+            window.PreviewMouseLeftButtonDown += NoClick;
             List<Card> ToBeCheckedCardList = new List<Card>();
             foreach (var item in cards)
             {
-                if (item.IsFlipped == true)
+                if (item.IsFlipped == true && item.IsFound == false)
                 {
                     ToBeCheckedCardList.Add(item);
                 }
-                ImageRef[item.Id].MouseLeftButtonDown -= (sender, e) =>
-                {
-                    e.Handled = true;
-                };
+                
             }
             if (ToBeCheckedCardList.Count > 1)
             {
                 if (ToBeCheckedCardList[0].FrontImage == ToBeCheckedCardList[1].FrontImage)
                 {
-                    lblFoundPairsCount.Content = int.Parse(lblFoundPairsCount.Content.ToString()) + 1;
+                    lblFoundPairsCount.Content = int.Parse(lblFoundPairsCount.Content.ToString()!) + 1;
+                    ToBeCheckedCardList[0].IsFound = true;
+                    ToBeCheckedCardList[1].IsFound = true;
                 }
-                
-                await Task.Delay(2000);
+
+                await Task.Delay(1000);
                 foreach (var item in cards)
                 {
-                    if (item.IsFlipped == true)
+                    if (item.IsFlipped == true && item.IsFound == false)
                     {
                         item.IsFlipped = false;
                         ImageRef[item.Id].Source = new BitmapImage(new Uri(item.BackImage));   
                     }
-                    ImageRef[item.Id].MouseLeftButtonDown += (sender, e) =>
-                    {
-                        ImageRef[item.Id].Source = new BitmapImage(new Uri(item.FrontImage));
-                        item.IsFlipped = true;
-                        CheckForPair();
-                    };
                 }
             }
+            window.PreviewMouseLeftButtonDown -= NoClick;
         }
 
-        private void PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        private void NoClick(object sender, RoutedEventArgs e)
         {
             e.Handled = true;
         }
-
         private void MakeCards()
         {
             List<string> notShuffledImageList = new List<string>();
@@ -160,11 +158,11 @@ namespace ReachTheEndGame
             {
 
                 int selectIndex = rand.Next(0, ImageList.Count);
-                Cards.Add(new Card($"{Directory.GetCurrentDirectory()}\\Images\\MemoryGame\\CardBack.png", ImageList[selectIndex], i, false));
+                Cards.Add(new Card($"{Directory.GetCurrentDirectory()}\\Images\\MemoryGame\\CardBack.png", ImageList[selectIndex], i, false, false));
                 i++;
                 if (ImageList.Count > 6)
                 {
-                    Cards.Add(new Card($"{Directory.GetCurrentDirectory()}\\Images\\MemoryGame\\CardBack.png", ImageList[selectIndex], i, false));
+                    Cards.Add(new Card($"{Directory.GetCurrentDirectory()}\\Images\\MemoryGame\\CardBack.png", ImageList[selectIndex], i, false, false));
                     i++;
                 }
                 ImageList.RemoveAt(selectIndex);

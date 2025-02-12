@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ReachTheEndGame"
         mc:Ignorable="d"
-        Title="NumberGuessWindow" Height="300" Width="300">
+        Title="NumberGuessWindow" Height="300" Width="300"
+        Name="window">
     <Window.Resources>
         <Style TargetType="Border">
             <Setter Property="Background" Value="LightGray"/>

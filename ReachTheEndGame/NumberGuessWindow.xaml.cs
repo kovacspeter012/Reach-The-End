@@ -28,8 +28,15 @@ namespace ReachTheEndGame
 
         private void btnGuess_Click(object sender, RoutedEventArgs e)
         {
-
-            string feedback = GuessedNumber.NumGuess(int.Parse(tbGuess.Text));
+            string feedback;
+            if (int.TryParse(tbGuess.Text, out int num))
+            {
+                feedback = GuessedNumber.NumGuess(int.Parse(tbGuess.Text));
+            }
+            else
+            {
+                feedback = "";
+            }
             tbGuess.Text = null;
 
             if (feedback == ">")
@@ -42,11 +49,21 @@ namespace ReachTheEndGame
             }
             else if (feedback == "win")
             {
-                lblGuess.Content = "Nyertél!";
+                lblGuess.Content = "";
+                MessageBox.Show("Kitaláltad a számot!");
+
+                window.Close();
             }
             else if (feedback == "lose")
             {
-                lblGuess.Content = "Kitaláltad a számot de sajnos\ntúl sok lépésből!";
+                lblGuess.Content = "";
+                MessageBox.Show("Kitaláltad a számot de sajnos\ntúl sok lépésből!");
+
+                window.Close();
+            }
+            else if(feedback == "")
+            {
+                lblGuess.Content = "Írj be egy számot!";
             }
         }
 

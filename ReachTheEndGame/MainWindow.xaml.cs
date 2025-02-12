@@ -22,12 +22,15 @@ namespace ReachTheEndGame
         {
             InitializeComponent();
             Loaded += (s, e) => Die._s = FindResource("DieButtonStyle") as Style;
+            Loaded += (s, e) => Table._s = FindResource("GameGridStyle") as Style;
             rtgDie.Loaded += (s,e) => Die.CenterDie(cnvDie, rtgDie);
             rtgDie.Loaded += (s, e) => Die.GenerateDieButtons(cnvDie);
 
             scvFeedback.ScrollChanged += SetFeedbackAutoScroll;
 
             rtgDie.PreviewMouseDown += (s, e) => Die.DisplayDie(rtgDie, 1);
+
+            cnvGame.Loaded += (s, e) => Table.GenerateTable(cnvGame);
         }
         public void SetFeedbackAutoScroll(object s, ScrollChangedEventArgs e)
         {

@@ -21,7 +21,7 @@ namespace ReachTheEndGame
     /// <summary>
     /// Interaction logic for MemoryGameWindow.xaml
     /// </summary>
-    public partial class MemoryGameWindow : Window
+    public partial class MemoryGameWindow : Window, IMiniGame
     {
         Random rand = new Random();
 
@@ -30,6 +30,11 @@ namespace ReachTheEndGame
         List<Card> cards = new List<Card>();
 
         Dictionary<int, Image> ImageRef = new Dictionary<int, Image>();
+
+        int foundPairs = 0;
+
+        public GameEndHandler GameEndHandler { get; set; }
+
         public MemoryGameWindow()
         {
             InitializeComponent();
@@ -42,7 +47,14 @@ namespace ReachTheEndGame
                 if (timeLeft < 1)
                 {
                     aTimer.Stop();
-
+                    if (foundPairs > 0)
+                    {
+                        EndGame(true, false, foundPairs, 0);
+                    }
+                    else
+                    {
+                        EndGame(false, true, foundPairs, 0);
+                    }
                 }
             };
             aTimer.Start();
@@ -52,9 +64,21 @@ namespace ReachTheEndGame
                 MakeCards();
                 ShowCards();
             };
-            test.Content = lblFoundPairsCount.Content.ToString();
         }
 
+        private void EndGame(bool win, bool requireDiceAfter, int extraSteps, double diceMultiplyer)
+        {
+            if (win)
+            {
+                MessageBox.Show($"Megtaláltál {extraSteps} párt!");
+            }
+            else
+            {
+                MessageBox.Show($"Sajnos egy párt sem találtál meg!");
+            }
+            GameEndHandler = new(win, requireDiceAfter, extraSteps, diceMultiplyer);
+            window.Close();
+        }
         
         private void ShowCards()
         {
@@ -116,7 +140,9 @@ namespace ReachTheEndGame
             {
                 if (ToBeCheckedCardList[0].FrontImage == ToBeCheckedCardList[1].FrontImage)
                 {
-                    lblFoundPairsCount.Content = int.Parse(lblFoundPairsCount.Content.ToString()!) + 1;
+                    foundPairs += 1;
+                    lblFoundPairsCount.Content = foundPairs;
+                    
                     ToBeCheckedCardList[0].IsFound = true;
                     ToBeCheckedCardList[1].IsFound = true;
                 }
@@ -132,6 +158,10 @@ namespace ReachTheEndGame
                 }
             }
             window.PreviewMouseLeftButtonDown -= NoClick;
+            if (foundPairs == 6)
+            {
+                EndGame(true, false, foundPairs, 0);
+            }
         }
 
         private void NoClick(object sender, RoutedEventArgs e)

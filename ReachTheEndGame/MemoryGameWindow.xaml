@@ -43,7 +43,6 @@
                     </TextBlock>
                     <Label Grid.Column="1" Content="Ennyi párt találtál meg:" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="20"/>
                     <Label Name="lblFoundPairsCount" Grid.Column="2" Content="0" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="20"/>
-                    <Label Name="test" Content=""/>
 
                 </Grid>
             </Grid>

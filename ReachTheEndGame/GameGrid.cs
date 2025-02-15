@@ -23,6 +23,7 @@ namespace ReachTheEndGame
 
         public GameGridType GridType { get; private set; }
 
+        public Section Section { get; set; }
     }
     public enum GameGridType
     {

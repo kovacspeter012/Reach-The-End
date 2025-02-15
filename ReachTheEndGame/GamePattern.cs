@@ -6,11 +6,18 @@ using System.Threading.Tasks;
 
 namespace ReachTheEndGame
 {
-    public static class GamePattern
+    public class GamePattern
     {
-        public static int OffSetX { get; private set; } = 15;
-        public static int OffSetY { get; private set; } = 20;
-        public static bool BounceOnEdge { get; private set; } = true;
+        public int OffSetX { get; private set; } = 15;
+        public int OffSetY { get; private set; } = 20;
+        public bool BounceOnEdge { get; private set; } = true;
+
+        public GamePattern(int offSetX, int offSetY, bool bounceOnEdge = true)
+        {
+            OffSetX = offSetX;
+            OffSetY = offSetY;
+            BounceOnEdge = bounceOnEdge;
+        }
 
     }
 }

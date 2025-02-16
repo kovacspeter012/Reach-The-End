@@ -18,6 +18,12 @@ namespace ReachTheEndGame
     {
         public bool AutoScroll = false;
         public int DieNumber = 1;
+
+        public int SectionID = 0;
+        public int SectionElementID = 0;
+
+        public GameGrid SelectedGameGrid => Table._sections[SectionID].Elements[SectionElementID];
+
         public MainWindow()
         {
             InitializeComponent();
@@ -28,7 +34,7 @@ namespace ReachTheEndGame
 
             scvFeedback.ScrollChanged += SetFeedbackAutoScroll;
 
-            rtgDie.PreviewMouseDown += (s, e) => Die.DisplayDie(rtgDie, 1);
+            rtgDie.PreviewMouseDown += (s, e) => ThrowDie();
 
             cnvGame.Loaded += (s, e) => Table.GenerateTable(cnvGame);
         }

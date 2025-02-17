@@ -24,15 +24,16 @@ namespace ReachTheEndGame
         private List<Hole> holes = new List<Hole>();
         Random random = new Random();
         int foundMolesNum = 0;
+        public GameEndHandler GameEndHandler { get; set; }
+        DispatcherTimer aTimer = new DispatcherTimer();
         public HitTheMoleWindow()
         {
             InitializeComponent();
-            DispatcherTimer aTimer = new DispatcherTimer();
+            
             aTimer.Interval = TimeSpan.FromSeconds(1);
             aTimer.Tick += (sender, e) =>
             {
                 resetHoles();
-                lblFoundMoles.Content = $"Ennyi vakondot kaptál el: {foundMolesNum.ToString()}";
                 timeLeft -= 1;
                 lblTimer.Content = $"Ennyi mp van vissza: {timeLeft}";
                 int randomHoleIndex1 = random.Next(0, 7);
@@ -45,11 +46,23 @@ namespace ReachTheEndGame
                 SetMoleOrBomb(randomHoleIndex1);
                 SetMoleOrBomb(randomHoleIndex2);
 
-
                 if (timeLeft < 1)
                 {
-                    aTimer.Stop();
+                    if (foundMolesNum == 0)
+                    {
+                        aTimer.Stop();
+                        MessageBox.Show($"Lejárt az időd. Nem kaptál el egy vakondot sem.");
+                        EndGame(false, false, 1, 0);
+                    }
+                    else 
+                    {
+                        aTimer.Stop();
+                        MessageBox.Show($"Lejárt az időd. Csak {foundMolesNum.ToString()} vakondot kaptál el.");
+                        EndGame(false, true, 0, 0.5);
+                    }
+                    
                 }
+
             };
             aTimer.Start();
 
@@ -64,14 +77,29 @@ namespace ReachTheEndGame
                         {
                             hole.IsThereMole = false;
                             foundMolesNum++;
+                            lblFoundMoles.Content = $"Ennyi vakondot kaptál el: {foundMolesNum.ToString()}";
+                            if (foundMolesNum >= 10)
+                            {
+                                aTimer.Stop();
+                                MessageBox.Show("Időben elfogtál 10 vakondot!");
+                                EndGame(true, true, 0, 2);
+                            }
                         }
                         else if (hole.IsThereBomb)
                         {
-                            
+                            aTimer.Stop();
+                            MessageBox.Show("Felrobbantál!");
+                            EndGame(false, false, 6, 0);
                         }
                     };
                 }
             };
+        }
+
+        private void EndGame(bool win, bool requireDiceAfter, int extraSteps, double diceMultiplyer)
+        {
+            GameEndHandler = new(win, requireDiceAfter, extraSteps, diceMultiplyer);
+            window.Close();
         }
 
         private void SetMoleOrBomb(int randomHoleIndex)

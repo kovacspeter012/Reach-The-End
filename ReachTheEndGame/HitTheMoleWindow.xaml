@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ReachTheEndGame"
         mc:Ignorable="d"
-        Title="HitTheMoleWindow" Height="540" Width="700">
+        Title="HitTheMoleWindow" Height="540" Width="700"
+        Name="window">
     <Border BorderBrush="Black" Background="LightGray" BorderThickness="3" Margin="6,6,6,6">
         <Grid>
             <Grid.RowDefinitions>
@@ -31,10 +32,10 @@
                     <ColumnDefinition Width="200"/>
                 </Grid.ColumnDefinitions>
                 <Border Grid.Column="1" BorderBrush="Black" BorderThickness="5" CornerRadius="50" HorizontalAlignment="Center" VerticalAlignment="Center" Height="100" Width="100" Background="White">
-                    <Image Name="Hole1" Source="Images/HitTheMoleGame/bomb.png"/>
+                    <Image Name="Hole1"/>
                 </Border>
                 <Border Grid.Column="2" BorderBrush="Black" BorderThickness="5" CornerRadius="50" HorizontalAlignment="Center" VerticalAlignment="Center" Height="100" Width="100" Background="White">
-                    <Image Name="Hole2" Source="Images/HitTheMoleGame/mole.png"/>
+                    <Image Name="Hole2"/>
                 </Border>
             </Grid>
             <Grid Grid.Row="2">

@@ -49,11 +49,11 @@ namespace ReachTheEndGame
                     aTimer.Stop();
                     if (foundPairs > 0)
                     {
-                        EndGame(true, false, foundPairs, 0);
+                        EndGame(true, false, foundPairs, 1);
                     }
                     else
                     {
-                        EndGame(false, true, foundPairs, 0);
+                        EndGame(false, true, foundPairs, 1);
                     }
                 }
             };

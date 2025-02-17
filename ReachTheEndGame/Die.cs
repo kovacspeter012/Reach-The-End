@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Shapes;
 
 namespace ReachTheEndGame
@@ -15,9 +16,11 @@ namespace ReachTheEndGame
         public static Ellipse[] DieButtons = new Ellipse[9];
         public static int DieNumber = 3;
         public static Rectangle DieRect;
+        public static bool isDiceAllowed = true;
+        
+        private static Random rnd = new Random();
         public static void Throw()
         {
-            Random rnd = new Random();
             DieNumber = rnd.Next(1,7);
         }
         public static void GenerateDieButtons(Canvas cnv)
@@ -44,10 +47,12 @@ namespace ReachTheEndGame
 
         public static void DisplayDie(Rectangle die, int num)
         {
+            if (!isDiceAllowed) return; 
             for(int i = 0; i < 9; i++)
             {
                 DieButtons[i].Visibility = Visibility.Hidden;
             }
+            die.Fill = new SolidColorBrush(Color.FromRgb((byte)rnd.Next(50,200), (byte)rnd.Next(50, 200), (byte)rnd.Next(50, 200)));
             switch (num)
             {
                 case 1:

@@ -379,7 +379,9 @@ namespace ReachTheEndGame
 
             if (steps.RequireDiceAfter)
             {
+                Die.isDiceAllowed = true;
                 await WaitForDiceClick(Die.DieRect);
+                Die.isDiceAllowed = false;
             }
 
             int MoveInt = steps.Win ? 1 : -1;

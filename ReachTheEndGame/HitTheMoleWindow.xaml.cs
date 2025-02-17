@@ -52,7 +52,7 @@ namespace ReachTheEndGame
                     {
                         aTimer.Stop();
                         MessageBox.Show($"Lejárt az időd. Nem kaptál el egy vakondot sem.");
-                        EndGame(false, false, 1, 0);
+                        EndGame(false, false, 1, 1);
                     }
                     else 
                     {
@@ -89,7 +89,7 @@ namespace ReachTheEndGame
                         {
                             aTimer.Stop();
                             MessageBox.Show("Felrobbantál!");
-                            EndGame(false, false, 6, 0);
+                            EndGame(false, false, 6, 1);
                         }
                     };
                 }

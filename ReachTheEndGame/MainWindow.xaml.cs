@@ -26,6 +26,7 @@ namespace ReachTheEndGame
             InitializeComponent();
             Loaded += (s, e) => Die._s = FindResource("DieButtonStyle") as Style;
             Loaded += (s, e) => Table._s = FindResource("GameGridStyle") as Style;
+            Loaded += (s, e) => Table.MainWindow = this;
 
             Die.DieRect = rtgDie;
             rtgDie.Loaded += (s, e) => Die.CenterDie(cnvDie, rtgDie);
@@ -43,7 +44,7 @@ namespace ReachTheEndGame
             {
                 await Table.PlayGame();
                 AddFeedbackText("Gratulálok, nyertél!!");
-                MessageBox.Show("Gratulálok, nyertél!!", "Nyertél!", MessageBoxButton.OK);
+                //MessageBox.Show("Gratulálok, nyertél!!", "Nyertél!", MessageBoxButton.OK);
             };
 
             

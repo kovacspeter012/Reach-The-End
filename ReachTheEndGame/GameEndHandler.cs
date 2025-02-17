@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 
 namespace ReachTheEndGame
 {
-    public struct GameEndHandler(bool win = true, bool requireDiceAfter = true, int extraSteps = 0, double diceMultiplyer = 1.0, bool twoWays = false)
+    public struct GameEndHandler(bool win = true, bool requireDiceAfter = true, int extraSteps = 0, double diceMultiplyer = 1.0, bool twoWays = false, string message = "")
     {
         public bool Win { get; set; } = win;
         public bool RequireDiceAfter { get; set; } = requireDiceAfter;
         public int ExtraSteps { get; set; } = extraSteps;
         public double DiceMultiplyer { get; set; } = diceMultiplyer;
         public bool TwoWays { get; set; } = twoWays;
+        public string Message { get; set; } = message;
     }
 
     public interface IMiniGame
@@ -36,7 +37,7 @@ namespace ReachTheEndGame
 
         public GridBlank()
         {
-            GameEndHandler = new GameEndHandler() { Win = true, RequireDiceAfter = true, DiceMultiplyer = 1.0, ExtraSteps = 0, TwoWays = false };
+            GameEndHandler = new GameEndHandler() { Win = true, RequireDiceAfter = true, DiceMultiplyer = 1.0, ExtraSteps = 0, TwoWays = false, Message = "" };
         }
     }
     public class GridBackwards : FakeWindow, IMiniGame
@@ -46,7 +47,7 @@ namespace ReachTheEndGame
 
         public GridBackwards()
         {
-            GameEndHandler = new GameEndHandler() { Win = false, RequireDiceAfter = true, DiceMultiplyer = 1.0, ExtraSteps = 0, TwoWays = false };
+            GameEndHandler = new GameEndHandler() { Win = false, RequireDiceAfter = true, DiceMultiplyer = 1.0, ExtraSteps = 0, TwoWays = false, Message = "Pirosra léptél, a következő dobásnál visszafele fogsz majd lépni!" };
         }
     }
     public class GridDouble : FakeWindow, IMiniGame
@@ -56,7 +57,7 @@ namespace ReachTheEndGame
 
         public GridDouble()
         {
-            GameEndHandler = new GameEndHandler() { Win = true, RequireDiceAfter = true, DiceMultiplyer = 2.0, ExtraSteps = 0, TwoWays = false };
+            GameEndHandler = new GameEndHandler() { Win = true, RequireDiceAfter = true, DiceMultiplyer = 2.0, ExtraSteps = 0, TwoWays = false, Message = "Zöldre léptél, a következő dobás kétszeresével mehetsz majd tovább!" };
         }
     }
     public class GridChoose : FakeWindow, IMiniGame
@@ -66,7 +67,7 @@ namespace ReachTheEndGame
 
         public GridChoose()
         {
-            GameEndHandler = new GameEndHandler() { Win = true, RequireDiceAfter = true, DiceMultiplyer = 1.0, ExtraSteps = 0, TwoWays = true };
+            GameEndHandler = new GameEndHandler() { Win = true, RequireDiceAfter = true, DiceMultiplyer = 1.0, ExtraSteps = 0, TwoWays = true, Message = "Lilára léptél, a következő dobásnál eldöntheted a menetirányt!" };
         }
     }
 }

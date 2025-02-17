@@ -22,6 +22,8 @@ namespace ReachTheEndGame
         public static List<GameGrid> _grids;
         public static List<Section> _sections;
 
+        public static MainWindow MainWindow { get; set; }
+
         public static int SectionID = 0;
         public static int SectionElementID = 0;
         public static GameGrid SelectedGameGrid => _sections[SectionID].Elements[SectionElementID];
@@ -458,6 +460,7 @@ namespace ReachTheEndGame
             IMiniGame miniGame = GetGame(SelectedGameGrid.GridType);
 
             miniGame.ShowDialog();
+            if (miniGame.GameEndHandler.Message != "") MainWindow.AddFeedbackText(miniGame.GameEndHandler.Message);
             await TakeSteps(miniGame.GameEndHandler);
         }
         public static async Task PlayGame()

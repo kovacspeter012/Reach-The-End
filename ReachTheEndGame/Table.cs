@@ -1,15 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows;
 using System.Windows.Automation;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace ReachTheEndGame
 {
@@ -23,6 +26,13 @@ namespace ReachTheEndGame
         public static int SectionElementID = 0;
         public static GameGrid SelectedGameGrid => _sections[SectionID].Elements[SectionElementID];
         public static GameGrid PrevGameGrid;
+
+        public static System.Timers.Timer Timer = new(300);
+        public static System.Timers.Timer SubTimer = new(600);
+        public static bool ShowSelectedGameGrid = true;
+        public static bool DoBlinking = true;
+        public static bool ShowSelectableGameGrids = true;
+        public static List<GameGrid> subGameGrids = new(); 
 
         private readonly static Dictionary<GameGridType, int> NumberOfGrids = new Dictionary<GameGridType, int> //118
         {
@@ -305,6 +315,9 @@ namespace ReachTheEndGame
 
             void ClickHandler(object sender, EventArgs e)
             {
+                subGameGrids = new();
+                DoBlinking = true;
+                SubTimer.Elapsed -= SubTimer_Tick;
                 foreach (GameGrid grid in DirectionGameGrids)
                 {
                     grid.Rectangle.PreviewMouseDown -= ClickHandler;
@@ -317,8 +330,12 @@ namespace ReachTheEndGame
             foreach (GameGrid grid in DirectionGameGrids)
             {
                 grid.Rectangle.PreviewMouseDown += ClickHandler;
-                grid.Rectangle.Fill = GetBrush(GameGridType.MineGame);
+                //grid.Rectangle.Fill = new SolidColorBrush(Color.FromRgb(110,110,110));
+                subGameGrids.Add(grid);
             }
+            
+            DoBlinking = false;
+            SubTimer.Elapsed += SubTimer_Tick;
             return clickTask.Task;
         }
         private static Task<bool> WaitForDiceClick(Rectangle dice)
@@ -428,7 +445,7 @@ namespace ReachTheEndGame
                 {
                     SectionElementID += MoveInt;
                 }
-
+                await Task.Delay(100);
                 ChangeCharacterPlace();
 
                 twoWayAlreadySelectedIt = false;
@@ -445,11 +462,32 @@ namespace ReachTheEndGame
         }
         public static async Task PlayGame()
         {
+            Timer.AutoReset = true;
+            Timer.Elapsed += Timer_Tick;
+            Timer.Start();
+
+            SubTimer.AutoReset = true;
+            SubTimer.Start();
+
             while (!SelectedGameGrid.IsEnd)
             {
                 await PlayRound();
             }
         }
-        
+
+        private static void SubTimer_Tick(object? sender, ElapsedEventArgs e)
+        {
+            ShowSelectableGameGrids = !ShowSelectableGameGrids;
+            if (!DoBlinking) Application.Current?.Dispatcher.Invoke(() =>
+            {
+                subGameGrids.ForEach(g => g.Rectangle.Fill = ShowSelectableGameGrids ? GetBrush(g.GridType) : new SolidColorBrush(Color.FromRgb(110, 110, 110)));
+            });
+        }
+
+        private static void Timer_Tick(object? sender, EventArgs e)
+        {
+            ShowSelectedGameGrid = !ShowSelectedGameGrid && DoBlinking;
+            Application.Current?.Dispatcher.Invoke(() => SelectedGameGrid.Rectangle.Fill = ShowSelectedGameGrid ? GetBrush(SelectedGameGrid.GridType) : GetBrush((GameGridType)(100)));
+        }
     }
 }

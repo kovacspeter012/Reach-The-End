@@ -13,10 +13,12 @@ namespace ReachTheEndGame
     {
         public static Style? _s;
         public static Ellipse[] DieButtons = new Ellipse[9];
-        public static int Throw()
+        public static int DieNumber = 3;
+        public static Rectangle DieRect;
+        public static void Throw()
         {
             Random rnd = new Random();
-            return rnd.Next(1,7);
+            DieNumber = rnd.Next(1,7);
         }
         public static void GenerateDieButtons(Canvas cnv)
         {
@@ -24,7 +26,7 @@ namespace ReachTheEndGame
             {
                 for (int j = -1; j <= 1; j++)
                 {
-                    Ellipse l = new() { Style = _s };
+                    Ellipse l = new() { Style = _s, IsHitTestVisible = false };
                     cnv.Children.Add(l);
                     Canvas.SetLeft(l, (cnv.ActualWidth - l.Width) / 2 + i*30);
                     Canvas.SetTop(l, (cnv.ActualHeight - l.Height) / 2 + j*30);

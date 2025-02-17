@@ -98,33 +98,35 @@ namespace ReachTheEndGame
         {
             sections = [];
 
+            int id = 0;
             for (int i = 0;i < _grids.Count;i++)
             {
-                if (i == 0) sections.Add(new Section(new GamePattern(0, -35)));
-                if (i == 15) sections.Add(new Section(new GamePattern(35,0)));
-                if (i == 17) sections.Add(new Section(new GamePattern(0,-35)));
-                if (i == 18) sections.Add(new Section(new GamePattern(35, 0)));
-                if (i == 28) sections.Add(new Section(new GamePattern(0, 35)));
-                if (i == 29) sections.Add(new Section(new GamePattern(35, 0)));
-                if (i == 39) sections.Add(new Section(new GamePattern(35, 0)));
-                if (i == 40) sections.Add(new Section(new GamePattern(35, 0)));
-                if (i == 41) sections.Add(new Section(new GamePattern(0, 35)));
-                if (i == 42) sections.Add(new Section(new GamePattern(35, 0)));
-                if (i == 45) sections.Add(new Section(new GamePattern(0, 35))); // 10
-                if (i == 48) sections.Add(new Section(new GamePattern(-35, 0)));
-                if (i == 56) sections.Add(new Section(new GamePattern(0, 35)));
-                if (i == 58) sections.Add(new Section(new GamePattern(-35, 0)));
-                if (i == 64) sections.Add(new Section(new GamePattern(0, 35)));
-                if (i == 72) sections.Add(new Section(new GamePattern(35, 0)));
-                if (i == 77) sections.Add(new Section(new GamePattern(35, 0)));
-                if (i == 83) sections.Add(new Section(new GamePattern(0, 35)));
-                if (i == 91) sections.Add(new Section(new GamePattern(-35, 0)));
-                if (i == 96) sections.Add(new Section(new GamePattern(-35, 0)));
-                if (i == 97) sections.Add(new Section(new GamePattern(0, -35))); //20
-                if (i == 100) sections.Add(new Section(new GamePattern(-35, 0)));
-                if (i == 104) sections.Add(new Section(new GamePattern(0, -35)));
-                if (i == 107) sections.Add(new Section(new GamePattern(35, 0)));
-                if (i == 114) sections.Add(new Section(new GamePattern(0, 35)));
+                if (i == 0) sections.Add(new Section(new GamePattern(0, -35),id++));
+                if (i == 15) sections.Add(new Section(new GamePattern(35,0), id++));
+                if (i == 17) sections.Add(new Section(new GamePattern(0,-35), id++));
+                if (i == 18) sections.Add(new Section(new GamePattern(35, 0), id++));
+                if (i == 28) sections.Add(new Section(new GamePattern(0, 35), id++));
+                if (i == 29) sections.Add(new Section(new GamePattern(35, 0), id++));
+                if (i == 39) sections.Add(new Section(new GamePattern(35, 0), id++));
+                if (i == 40) sections.Add(new Section(new GamePattern(35, 0), id++));
+                if (i == 41) sections.Add(new Section(new GamePattern(0, 35), id++));
+                if (i == 42) sections.Add(new Section(new GamePattern(35, 0), id++));
+                if (i == 45) sections.Add(new Section(new GamePattern(0, 35), id++)); // 10
+                if (i == 48) sections.Add(new Section(new GamePattern(-35, 0), id++));
+                if (i == 56) sections.Add(new Section(new GamePattern(0, 35), id++));
+                if (i == 58) sections.Add(new Section(new GamePattern(-35, 0), id++));
+                if (i == 64) sections.Add(new Section(new GamePattern(0, 35), id++));
+                if (i == 72) sections.Add(new Section(new GamePattern(35, 0), id++));
+                if (i == 77) sections.Add(new Section(new GamePattern(35, 0), id++));
+                if (i == 83) sections.Add(new Section(new GamePattern(0, 35), id++));
+                if (i == 91) sections.Add(new Section(new GamePattern(-35, 0), id++));
+                if (i == 96) sections.Add(new Section(new GamePattern(-35, 0), id++));
+                if (i == 97) sections.Add(new Section(new GamePattern(0, -35), id++)); //20
+                if (i == 100) sections.Add(new Section(new GamePattern(-35, 0), id++));
+                if (i == 104) sections.Add(new Section(new GamePattern(0, -35), id++));
+                if (i == 107) sections.Add(new Section(new GamePattern(35, 0), id++));
+                if (i == 114) sections.Add(new Section(new GamePattern(0, 35), id++));
+                if (i == 117) sections.Add(new Section(new GamePattern(0, 35), id++));
 
                 _grids[i].Section = sections.Last();
                 _grids[i].Section.Elements.Add(_grids[i]);
@@ -208,8 +210,10 @@ namespace ReachTheEndGame
             sections[23].Ends.Add(sections[24].Elements.First());
             sections[24].Starts.Add(sections[23].Elements.Last());
 
-            sections[24].Ends.Add(sections[24].Elements.Last());
+            sections[24].Ends.Add(sections[25].Elements.Last());
+            sections[25].Starts.Add(sections[24].Elements.Last());
 
+            sections[25].Ends.Add(sections[25].Elements.Last());
         }
         private static void TestWays(GameGrid selectedGrid)
         {
@@ -274,25 +278,176 @@ namespace ReachTheEndGame
 
             PlaceGridsOnCanvas(cnvGame, testPatterns);
 
-            ChangeCharacterPlace(0, 0);
-        }
-        public static void ChangeCharacterPlace(int sectionID, int sectionElementID)
-        {
-            PrevGameGrid = SelectedGameGrid;
-
-            SectionID = sectionID;
-            SectionElementID = sectionElementID;
-
-            PrevGameGrid.Rectangle.Fill = GetBrush(PrevGameGrid.GridType);
-            SelectedGameGrid.Rectangle.Fill = GetBrush((GameGridType)(24));
+            ChangeCharacterPlace();
         }
         public static void ChangeCharacterPlace()
         {
-            ChangeCharacterPlace(SectionID, SectionElementID);
+            PrevGameGrid.Rectangle.Fill = GetBrush(PrevGameGrid.GridType);
+            SelectedGameGrid.Rectangle.Fill = GetBrush((GameGridType)(24));
         }
-        public static void TakeSteps(int steps)
+        public static IMiniGame GetGame(GameGridType gameGridType) => gameGridType switch
         {
-            //TODO!
+            GameGridType.Blank => new GridBlank(),
+            GameGridType.Backwards => new GridBackwards(),
+            GameGridType.Double => new GridDouble(),
+            GameGridType.Choose => new GridChoose(),
+
+            GameGridType.GuessGame => new GridBlank(),
+            GameGridType.MemoryGame => new GridBlank(),
+            GameGridType.MoleGame => new GridBlank(),
+            GameGridType.MineGame => new GridBlank(),
+
+            _ => new GridBlank(),
+        };
+        private static Task<GameGrid> WaitForDirectionClick(List<GameGrid> DirectionGameGrids)
+        {
+            TaskCompletionSource<GameGrid> clickTask = new TaskCompletionSource<GameGrid>();
+
+            void ClickHandler(object sender, EventArgs e)
+            {
+                foreach (GameGrid grid in DirectionGameGrids)
+                {
+                    grid.Rectangle.PreviewMouseDown -= ClickHandler;
+                    grid.Rectangle.Fill = GetBrush(grid.GridType);
+                }
+                GameGrid g = DirectionGameGrids.FirstOrDefault(gamegrid => gamegrid.Rectangle == (Rectangle)sender) ?? _sections[0].Elements[0];
+                clickTask.SetResult(g);
+            }
+
+            foreach (GameGrid grid in DirectionGameGrids)
+            {
+                grid.Rectangle.PreviewMouseDown += ClickHandler;
+                grid.Rectangle.Fill = GetBrush(GameGridType.MineGame);
+            }
+            return clickTask.Task;
         }
+        private static Task<bool> WaitForDiceClick(Rectangle dice)
+        {
+            TaskCompletionSource<bool> clickTask = new TaskCompletionSource<bool>();
+
+            void ClickHandler(object sender, EventArgs e)
+            {
+                dice.PreviewMouseDown -= ClickHandler;
+                clickTask.SetResult(true);
+            }
+
+            dice.PreviewMouseDown += ClickHandler;
+            return clickTask.Task;
+        }
+        private static async Task TakeSteps(GameEndHandler steps)
+        {
+            PrevGameGrid = SelectedGameGrid;
+
+            var sectionsBefore = SelectedGameGrid.Section.Starts;
+            var sectionsAfter = SelectedGameGrid.Section.Ends;
+
+            GameGrid selectedSection = _sections[0].Starts[0];
+            bool twoWayAlreadySelectedIt = false;
+            if (steps.TwoWays)
+            {
+                List<GameGrid> Before = new();
+                List<GameGrid> After = new();
+
+                List<GameGrid> All = new();
+
+                if(SectionElementID - 1 >= 0)
+                {
+                    Before.Add(_sections[SectionID].Elements[SectionElementID - 1]);
+                }
+                else
+                {
+                    Before.AddRange(sectionsBefore);
+                }
+                if(SectionElementID + 1 < _sections[SectionID].Elements.Count)
+                {
+                    After.Add(_sections[SectionID].Elements[SectionElementID + 1]);
+                }
+                else
+                {
+                    After.AddRange(sectionsAfter);
+                }
+
+                All.AddRange(Before);
+                All.AddRange(After);
+
+                var clicked = await WaitForDirectionClick(All);
+
+                steps.Win = After.Contains(clicked);
+                selectedSection = clicked;
+                twoWayAlreadySelectedIt = true;
+            }
+
+            if (steps.RequireDiceAfter)
+            {
+                await WaitForDiceClick(Die.DieRect);
+            }
+
+            int MoveInt = steps.Win ? 1 : -1;
+            int stepsToTake = (int)(Die.DieNumber * steps.DiceMultiplyer + steps.ExtraSteps);
+
+            for (int i = 0; i < stepsToTake; i++)
+            {
+                PrevGameGrid = SelectedGameGrid;
+                if (SectionElementID + MoveInt < 0)
+                {
+                    if (sectionsBefore.Count == 1) selectedSection = sectionsBefore[0];
+                    else if(twoWayAlreadySelectedIt)
+                    {
+                        //twoway kiválasztotta
+                    }
+                    else
+                    {
+                        selectedSection = await WaitForDirectionClick(sectionsBefore);
+                    }
+                    SectionID = selectedSection.Section.ID;
+                    SectionElementID = selectedSection.Section.Elements.Count - 1;
+
+                    sectionsBefore = SelectedGameGrid.Section.Starts;
+                    sectionsAfter = SelectedGameGrid.Section.Ends;
+                }
+                else if (SectionElementID + MoveInt >= _sections[SectionID].Elements.Count)
+                {
+                    if (sectionsAfter.Count == 1) selectedSection = sectionsAfter[0];
+                    else if (twoWayAlreadySelectedIt)
+                    {
+                        //twoway kiválasztotta
+                    }
+                    else
+                    {
+                        selectedSection = await WaitForDirectionClick(sectionsAfter);
+                    }
+                    SectionID = selectedSection.Section.ID;
+                    SectionElementID = 0;
+
+                    sectionsBefore = SelectedGameGrid.Section.Starts;
+                    sectionsAfter = SelectedGameGrid.Section.Ends;
+                }
+                else
+                {
+                    SectionElementID += MoveInt;
+                }
+
+                ChangeCharacterPlace();
+
+                twoWayAlreadySelectedIt = false;
+            }
+            ChangeCharacterPlace();
+
+        }
+        public static async Task PlayRound()
+        {
+            IMiniGame miniGame = GetGame(SelectedGameGrid.GridType);
+
+            miniGame.ShowDialog();
+            await TakeSteps(miniGame.GameEndHandler);
+        }
+        public static async Task PlayGame()
+        {
+            while (!SelectedGameGrid.IsEnd)
+            {
+                await PlayRound();
+            }
+        }
+        
     }
 }

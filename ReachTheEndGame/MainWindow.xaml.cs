@@ -20,26 +20,33 @@ namespace ReachTheEndGame
     public partial class MainWindow : Window
     {
         public bool AutoScroll = false;
-        public int DieNumber = 1;
 
         public MainWindow()
         {
             InitializeComponent();
             Loaded += (s, e) => Die._s = FindResource("DieButtonStyle") as Style;
             Loaded += (s, e) => Table._s = FindResource("GameGridStyle") as Style;
-            rtgDie.Loaded += (s,e) => Die.CenterDie(cnvDie, rtgDie);
+
+            Die.DieRect = rtgDie;
+            rtgDie.Loaded += (s, e) => Die.CenterDie(cnvDie, rtgDie);
             rtgDie.Loaded += (s, e) => Die.GenerateDieButtons(cnvDie);
+            rtgDie.Loaded += (s, e) => Die.Throw();
+            rtgDie.Loaded += (s, e) => Die.DisplayDie(rtgDie, Die.DieNumber);
 
-            scvFeedback.ScrollChanged += SetFeedbackAutoScroll;
+            scvFeedback.ScrollChanged += this.SetFeedbackAutoScroll;
 
-            rtgDie.PreviewMouseDown += (s, e) => ThrowDie();
+            rtgDie.PreviewMouseDown += (s, e) => Die.Throw();
+            rtgDie.PreviewMouseDown += (s, e) => Die.DisplayDie(rtgDie,Die.DieNumber);
 
             cnvGame.Loaded += (s, e) => Table.GenerateTable(cnvGame);
-
-            this.KeyDown += (s, e) => 
+            cnvGame.Loaded += async (s, e) =>
             {
-                TakeSteps(1);
+                await Table.PlayGame();
+                AddFeedbackText("Gratulálok, nyertél!!");
+                MessageBox.Show("Gratulálok, nyertél!!", "Nyertél!", MessageBoxButton.OK);
             };
+
+            
         }
         public void SetFeedbackAutoScroll(object s, ScrollChangedEventArgs e)
         {
@@ -60,10 +67,5 @@ namespace ReachTheEndGame
             dcpFeedback.Children.Add(l);
         }
 
-        public void ThrowDie()
-        {
-            DieNumber = Die.Throw();
-            Die.DisplayDie(rtgDie, DieNumber);
-        }
     }
 }

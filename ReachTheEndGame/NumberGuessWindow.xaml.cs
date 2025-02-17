@@ -52,14 +52,14 @@ namespace ReachTheEndGame
             {
                 lblGuess.Content = "";
                 MessageBox.Show("Kitaláltad a számot!");
-                EndGame(true, true, 0, 0);
+                EndGame(true, true, 0, 1);
                 window.Close();
             }
             else if (feedback == "lose")
             {
                 lblGuess.Content = "";
                 MessageBox.Show("Kitaláltad a számot de sajnos\ntúl sok lépésből!");
-                EndGame(false, true, 0, 0);
+                EndGame(false, true, 0, 1);
                 window.Close();
             }
             else if(feedback == "")

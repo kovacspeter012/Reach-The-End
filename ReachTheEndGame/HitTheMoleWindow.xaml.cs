@@ -23,6 +23,7 @@ namespace ReachTheEndGame
         private int timeLeft = 30;
         private List<Hole> holes = new List<Hole>();
         Random random = new Random();
+        int foundMolesNum = 0;
         public HitTheMoleWindow()
         {
             InitializeComponent();
@@ -31,10 +32,19 @@ namespace ReachTheEndGame
             aTimer.Tick += (sender, e) =>
             {
                 resetHoles();
+                lblFoundMoles.Content = $"Ennyi vakondot kaptál el: {foundMolesNum.ToString()}";
                 timeLeft -= 1;
                 lblTimer.Content = $"Ennyi mp van vissza: {timeLeft}";
-                int randomHoleIndex = random.Next(0, 7);
-                holes[randomHoleIndex].IsThereMole = true;
+                int randomHoleIndex1 = random.Next(0, 7);
+                int randomHoleIndex2 = random.Next(0, 7);
+                while (randomHoleIndex1 == randomHoleIndex2)
+                {
+                    randomHoleIndex1 = random.Next(0, 7);
+                    randomHoleIndex2 = random.Next(0, 7);
+                }
+                SetMoleOrBomb(randomHoleIndex1);
+                SetMoleOrBomb(randomHoleIndex2);
+
 
                 if (timeLeft < 1)
                 {
@@ -52,7 +62,8 @@ namespace ReachTheEndGame
                     {
                         if (hole.IsThereMole)
                         {
-                            
+                            hole.IsThereMole = false;
+                            foundMolesNum++;
                         }
                         else if (hole.IsThereBomb)
                         {
@@ -61,6 +72,19 @@ namespace ReachTheEndGame
                     };
                 }
             };
+        }
+
+        private void SetMoleOrBomb(int randomHoleIndex)
+        {
+            int randomImage = random.Next(0, 3);
+            if (randomImage == 0)
+            {
+                holes[randomHoleIndex].IsThereBomb = true;
+            }
+            else
+            {
+                holes[randomHoleIndex].IsThereMole = true;
+            }
         }
 
         private void resetHoles()

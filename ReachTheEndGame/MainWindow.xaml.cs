@@ -9,6 +9,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+
+using static ReachTheEndGame.Table;
+
 namespace ReachTheEndGame
 {
     /// <summary>
@@ -18,11 +21,6 @@ namespace ReachTheEndGame
     {
         public bool AutoScroll = false;
         public int DieNumber = 1;
-
-        public int SectionID = 0;
-        public int SectionElementID = 0;
-
-        public GameGrid SelectedGameGrid => Table._sections[SectionID].Elements[SectionElementID];
 
         public MainWindow()
         {
@@ -37,19 +35,17 @@ namespace ReachTheEndGame
             rtgDie.PreviewMouseDown += (s, e) => ThrowDie();
 
             cnvGame.Loaded += (s, e) => Table.GenerateTable(cnvGame);
+
+            this.KeyDown += (s, e) => 
+            {
+                TakeSteps(1);
+            };
         }
         public void SetFeedbackAutoScroll(object s, ScrollChangedEventArgs e)
         {
             if (e.ExtentHeightChange == 0)
             {
-                if (scvFeedback.VerticalOffset == scvFeedback.ScrollableHeight)
-                {
-                    AutoScroll = true;
-                }
-                else
-                {
-                    AutoScroll = false;
-                }
+                AutoScroll = scvFeedback.VerticalOffset == scvFeedback.ScrollableHeight;
             }
 
             if (AutoScroll && e.ExtentHeightChange != 0)

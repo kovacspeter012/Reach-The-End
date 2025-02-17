@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Automation;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
@@ -17,6 +18,11 @@ namespace ReachTheEndGame
         public static Style? _s;
         public static List<GameGrid> _grids;
         public static List<Section> _sections;
+
+        public static int SectionID = 0;
+        public static int SectionElementID = 0;
+        public static GameGrid SelectedGameGrid => _sections[SectionID].Elements[SectionElementID];
+        public static GameGrid PrevGameGrid;
 
         private readonly static Dictionary<GameGridType, int> NumberOfGrids = new Dictionary<GameGridType, int> //118
         {
@@ -46,9 +52,13 @@ namespace ReachTheEndGame
                 default: return "#000000";
             }
         }
+        public static SolidColorBrush GetBrush(GameGridType gameGridType)
+        {
+            return new SolidColorBrush((Color)ColorConverter.ConvertFromString(GetColor(gameGridType)));
+        }
         private static Rectangle GenerateRectangle(GameGridType gameGridType)
         {
-            return new Rectangle() { Style = _s, Fill =  new SolidColorBrush((Color)ColorConverter.ConvertFromString(GetColor(gameGridType)))};
+            return new Rectangle() { Style = _s, Fill = GetBrush(gameGridType)};
         }
         private static void GenerateGrids(out List<GameGrid> grids)
         {
@@ -203,10 +213,10 @@ namespace ReachTheEndGame
         }
         private static void TestWays(GameGrid selectedGrid)
         {
-            _grids.ForEach(el => el.Rectangle.Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString(GetColor((GameGridType)(23)))));
-            selectedGrid.Section.Elements.ForEach(el => el.Rectangle.Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString(GetColor((GameGridType)(1)))));
-            selectedGrid.Section.Starts.ForEach(el => el.Rectangle.Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString(GetColor((GameGridType)(2)))));
-            selectedGrid.Section.Ends.ForEach(el => el.Rectangle.Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString(GetColor((GameGridType)(3)))));
+            _grids.ForEach(el => el.Rectangle.Fill = GetBrush((GameGridType)(23)));
+            selectedGrid.Section.Elements.ForEach(el => el.Rectangle.Fill = GetBrush((GameGridType)(1)));
+            selectedGrid.Section.Starts.ForEach(el => el.Rectangle.Fill = GetBrush((GameGridType)(2)));
+            selectedGrid.Section.Ends.ForEach(el => el.Rectangle.Fill = GetBrush((GameGridType)(3)));
         }
         private static void PlaceGridsOnCanvas(Canvas cnvGame, bool testPatterns)
         {
@@ -230,7 +240,7 @@ namespace ReachTheEndGame
                     prevElement = grid;
 
 
-                    if (testPatterns) grid.Rectangle.Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString(GetColor((GameGridType)(currentPatternId % 8))));
+                    if (testPatterns) grid.Rectangle.Fill = GetBrush((GameGridType)(currentPatternId % 8));
                 }
                 currentPatternId++;
             }
@@ -258,10 +268,31 @@ namespace ReachTheEndGame
 
             GenerateSections(out List<Section> sections);
             _sections = sections;
+            PrevGameGrid = _sections[0].Starts[0];
 
             PlaceGridsInCanvas(cnvGame, testConnections);
 
             PlaceGridsOnCanvas(cnvGame, testPatterns);
+
+            ChangeCharacterPlace(0, 0);
+        }
+        public static void ChangeCharacterPlace(int sectionID, int sectionElementID)
+        {
+            PrevGameGrid = SelectedGameGrid;
+
+            SectionID = sectionID;
+            SectionElementID = sectionElementID;
+
+            PrevGameGrid.Rectangle.Fill = GetBrush(PrevGameGrid.GridType);
+            SelectedGameGrid.Rectangle.Fill = GetBrush((GameGridType)(24));
+        }
+        public static void ChangeCharacterPlace()
+        {
+            ChangeCharacterPlace(SectionID, SectionElementID);
+        }
+        public static void TakeSteps(int steps)
+        {
+            //TODO!
         }
     }
 }

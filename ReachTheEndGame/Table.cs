@@ -305,7 +305,7 @@ namespace ReachTheEndGame
             GameGridType.Choose => new GridChoose(),
 
             GameGridType.GuessGame => new GridBlank(),
-            GameGridType.MemoryGame => new GridBlank(),
+            GameGridType.MemoryGame => new MemoryGameWindow(),
             GameGridType.MoleGame => new GridBlank(),
             GameGridType.MineGame => new GridBlank(),
 
@@ -404,7 +404,8 @@ namespace ReachTheEndGame
             }
 
             int MoveInt = steps.Win ? 1 : -1;
-            int stepsToTake = (int)(Die.DieNumber * steps.DiceMultiplyer + steps.ExtraSteps);
+            int localDieNumber = steps.RequireDiceAfter ? Die.DieNumber : 0;
+            int stepsToTake = (int)(localDieNumber * steps.DiceMultiplyer + steps.ExtraSteps);
 
             for (int i = 0; i < stepsToTake; i++)
             {

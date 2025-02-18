@@ -53,7 +53,7 @@ namespace ReachTheEndGame
                     }
                     else
                     {
-                        EndGame(false, true, foundPairs, 1);
+                        EndGame(false, true, 0, 1); // csak kockadobással menjen hátra
                     }
                 }
             };
@@ -68,15 +68,7 @@ namespace ReachTheEndGame
 
         private void EndGame(bool win, bool requireDiceAfter, int extraSteps, double diceMultiplyer)
         {
-            if (win)
-            {
-                MessageBox.Show($"Megtaláltál {extraSteps} párt!");
-            }
-            else
-            {
-                MessageBox.Show($"Sajnos egy párt sem találtál meg!");
-            }
-            GameEndHandler = new(win, requireDiceAfter, extraSteps, diceMultiplyer);
+            GameEndHandler = new(win, requireDiceAfter, extraSteps, diceMultiplyer, false, win ? $"Megtaláltál {extraSteps} párt! Ennyivel léphetsz tovább." : "Sajnos egy párt sem találtál meg! A dobásod értékével fogsz visszafelé lépni.");
             window.Close();
         }
         

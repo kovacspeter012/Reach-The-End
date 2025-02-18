@@ -89,4 +89,13 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Images\HitTheMoleGame\bomb.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Images\HitTheMoleGame\mole.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

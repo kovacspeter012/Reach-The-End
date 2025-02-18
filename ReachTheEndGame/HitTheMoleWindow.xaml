@@ -1,0 +1,79 @@
+﻿<Window x:Class="ReachTheEndGame.HitTheMoleWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ReachTheEndGame"
+        mc:Ignorable="d"
+        Title="HitTheMoleWindow" Height="540" Width="700"
+        Name="window">
+    <Border BorderBrush="Black" Background="LightGray" BorderThickness="3" Margin="6,6,6,6">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Label Name="lblTimer" Content="Ennyi mp van vissza: 30" FontSize="20"/>
+                <Label Name="lblFoundMoles" Grid.Column="1" Content="Ennyi vakondot kaptál el: 0" FontSize="20"/>
+            </Grid>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="200"/>
+                </Grid.ColumnDefinitions>
+                <Border Grid.Column="1" BorderBrush="Black" BorderThickness="5" CornerRadius="50" HorizontalAlignment="Center" VerticalAlignment="Center" Height="100" Width="100" Background="White">
+                    <Image Name="Hole1"/>
+                </Border>
+                <Border Grid.Column="2" BorderBrush="Black" BorderThickness="5" CornerRadius="50" HorizontalAlignment="Center" VerticalAlignment="Center" Height="100" Width="100" Background="White">
+                    <Image Name="Hole2"/>
+                </Border>
+            </Grid>
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="100"/>
+                </Grid.ColumnDefinitions>
+                <Border Grid.Column="1" BorderBrush="Black" BorderThickness="5" CornerRadius="50" HorizontalAlignment="Center" VerticalAlignment="Center" Height="100" Width="100" Background="White">
+                    <Image Name="Hole3"/>
+                </Border>
+                <Border Grid.Column="2" BorderBrush="Black" BorderThickness="5" CornerRadius="50" HorizontalAlignment="Center" VerticalAlignment="Center" Height="100" Width="100" Background="White">
+                    <Image Name="Hole4"/>
+                </Border>
+                <Border Grid.Column="3" BorderBrush="Black" BorderThickness="5" CornerRadius="50" HorizontalAlignment="Center" VerticalAlignment="Center" Height="100" Width="100" Background="White">
+                    <Image Name="Hole5"/>
+                </Border>
+            </Grid>
+            <Grid Grid.Row="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="200"/>
+                </Grid.ColumnDefinitions>
+                <Border Grid.Column="1" BorderBrush="Black" BorderThickness="5" CornerRadius="50" HorizontalAlignment="Center" VerticalAlignment="Center" Height="100" Width="100" Background="White">
+                    <Image Name="Hole6"/>
+                </Border>
+                <Border Grid.Column="2" BorderBrush="Black" BorderThickness="5" CornerRadius="50" HorizontalAlignment="Center" VerticalAlignment="Center" Height="100" Width="100" Background="White">
+                    <Image Name="Hole7"/>
+                </Border>
+            </Grid>
+            <TextBlock Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" FontSize="16" Margin="0, 0, 0, 5">
+                        <Bold>Feladat:</Bold> Kattints a vakonokra amikor megjelennek. <LineBreak/> Bombára kattintva véget ér a játék. <LineBreak/> 
+                        <Bold>Cél:</Bold> 10 vakondot összegyűjteni.
+            </TextBlock>
+        </Grid>
+    </Border>
+</Window>

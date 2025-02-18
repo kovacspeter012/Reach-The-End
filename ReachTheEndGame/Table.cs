@@ -307,7 +307,7 @@ namespace ReachTheEndGame
             GameGridType.GuessGame => new NumberGuessWindow(),
             GameGridType.MemoryGame => new MemoryGameWindow(),
             GameGridType.MoleGame => new HitTheMoleWindow(),
-            GameGridType.MineGame => new GridBlank(),
+            GameGridType.MineGame => new MineSweeper(),
 
             _ => new GridBlank(),
         };

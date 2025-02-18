@@ -304,7 +304,7 @@ namespace ReachTheEndGame
             GameGridType.Double => new GridDouble(),
             GameGridType.Choose => new GridChoose(),
 
-            GameGridType.GuessGame => new GridBlank(),
+            GameGridType.GuessGame => new NumberGuessWindow(),
             GameGridType.MemoryGame => new MemoryGameWindow(),
             GameGridType.MoleGame => new GridBlank(),
             GameGridType.MineGame => new GridBlank(),
@@ -461,7 +461,7 @@ namespace ReachTheEndGame
             IMiniGame miniGame = GetGame(SelectedGameGrid.GridType);
 
             miniGame.ShowDialog();
-            if (miniGame.GameEndHandler.Message != "") MainWindow.AddFeedbackText(miniGame.GameEndHandler.Message);
+            if (miniGame.GameEndHandler.Message != "" && miniGame.GameEndHandler.Message is not null && miniGame.GameEndHandler.Message != string.Empty) MainWindow.AddFeedbackText(miniGame.GameEndHandler.Message);
             await TakeSteps(miniGame.GameEndHandler);
         }
         public static async Task PlayGame()

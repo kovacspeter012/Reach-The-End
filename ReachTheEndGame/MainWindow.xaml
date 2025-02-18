@@ -44,7 +44,7 @@
                 <local:SignsUC Text="Következő dobásnál visszafelé kell lépni" Source="Images/Main/red.png" />
                 <local:SignsUC Text="Következő dobásnál dupla annyit kell lépni" Source="Images/Main/green.png" />
                 <local:SignsUC Text="Következő dobásnál a játékos választhat, hogy előre vagy hátra szeretne lépni" Source="Images/Main/purple.png" />
-                <local:SignsUC Text="Szám kitaláló játék" Source="Images/Main/orange.png"/>
+                <local:SignsUC Text="Számkitaláló játék" Source="Images/Main/orange.png"/>
                 <local:SignsUC Text="Memória játék" Source="Images/Main/yellow.png"/>
                 <local:SignsUC Text="Csapd le a vakondot! játék" Source="Images/Main/brown.png"/>
                 <local:SignsUC Text="Aknakereső játék" Source="Images/Main/blue.png"/>

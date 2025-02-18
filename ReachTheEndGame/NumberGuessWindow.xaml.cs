@@ -17,7 +17,7 @@ namespace ReachTheEndGame
     /// <summary>
     /// Interaction logic for NumberGuessWindow.xaml
     /// </summary>
-    public partial class NumberGuessWindow : Window
+    public partial class NumberGuessWindow : Window, IMiniGame
     {
         NumberGuess GuessedNumber = new NumberGuess(new Random().Next(1, 101));
         public GameEndHandler GameEndHandler { get; set; }
@@ -51,14 +51,12 @@ namespace ReachTheEndGame
             else if (feedback == "win")
             {
                 lblGuess.Content = "";
-                MessageBox.Show("Kitaláltad a számot!");
                 EndGame(true, true, 0, 1);
                 window.Close();
             }
             else if (feedback == "lose")
             {
                 lblGuess.Content = "";
-                MessageBox.Show("Kitaláltad a számot de sajnos\ntúl sok lépésből!");
                 EndGame(false, true, 0, 1);
                 window.Close();
             }
@@ -70,15 +68,7 @@ namespace ReachTheEndGame
 
         private void EndGame(bool win, bool requireDiceAfter, int extraSteps, double diceMultiplyer)
         {
-            if (win)
-            {
-                MessageBox.Show($"Megtaláltál {extraSteps} párt!");
-            }
-            else
-            {
-                MessageBox.Show($"Sajnos egy párt sem találtál meg!");
-            }
-            GameEndHandler = new(win, requireDiceAfter, extraSteps, diceMultiplyer);
+            GameEndHandler = new(win, requireDiceAfter, extraSteps, diceMultiplyer, false, win ? "Kitaláltad a számot! Dobj a kockával a továbbhaladáshoz!" : "Kitaláltad a számot, de sajnos túl sok lépésből. A kockadobás után visszafelé fogsz lépni.");
             window.Close();
         }
 

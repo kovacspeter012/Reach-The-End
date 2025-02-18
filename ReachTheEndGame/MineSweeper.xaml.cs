@@ -30,7 +30,7 @@ namespace ReachTheEndGame
         public bool IsGameEnded { get; private set; } = false;
         public int ActiveBombsCount => Bombs.Where(e=>!e.IsFlagged).Count();
 
-        public GameEndHandler GameEndHandler { get; set; }
+        public GameEndHandler GameEndHandler { get; set; } = new GameEndHandler(false,false,6,1,false, "Kiléptél a játékból, ezért hat mezővel hátrébb fogsz menni.");
 
         public MineSweeper()
         {

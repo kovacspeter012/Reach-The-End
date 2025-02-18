@@ -24,7 +24,7 @@ namespace ReachTheEndGame
         private List<Hole> holes = new List<Hole>();
         Random random = new Random();
         int foundMolesNum = 0;
-        public GameEndHandler GameEndHandler { get; set; }
+        public GameEndHandler GameEndHandler { get; set; } = new GameEndHandler(false, false, 6, 1, false, "Kiléptél a játékból, ezért hat mezővel hátrébb fogsz menni.");
         DispatcherTimer aTimer = new DispatcherTimer();
         public HitTheMoleWindow()
         {

@@ -20,7 +20,7 @@ namespace ReachTheEndGame
     public partial class NumberGuessWindow : Window, IMiniGame
     {
         NumberGuess GuessedNumber = new NumberGuess(new Random().Next(1, 101));
-        public GameEndHandler GameEndHandler { get; set; }
+        public GameEndHandler GameEndHandler { get; set; } = new GameEndHandler(false, false, 6, 1, false, "Kiléptél a játékból, ezért hat mezővel hátrébb fogsz menni.");
         public NumberGuessWindow()
         {
             InitializeComponent();

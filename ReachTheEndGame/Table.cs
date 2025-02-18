@@ -421,8 +421,11 @@ namespace ReachTheEndGame
                     {
                         selectedSection = await WaitForDirectionClick(sectionsBefore);
                     }
-                    SectionID = selectedSection.Section.ID;
-                    SectionElementID = selectedSection.Section.Elements.Count - 1;
+                    if(!(SectionID == 0 && SectionElementID == 0))
+                    {
+                        SectionID = selectedSection.Section.ID;
+                        SectionElementID = selectedSection.Section.Elements.Count - 1;
+                    }
 
                     sectionsBefore = SelectedGameGrid.Section.Starts;
                     sectionsAfter = SelectedGameGrid.Section.Ends;

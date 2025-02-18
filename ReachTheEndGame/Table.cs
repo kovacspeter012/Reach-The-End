@@ -362,6 +362,14 @@ namespace ReachTheEndGame
 
             GameGrid selectedSection = _sections[0].Starts[0];
             bool twoWayAlreadySelectedIt = false;
+
+            if (steps.RequireDiceAfter)
+            {
+                Die.isDiceAllowed = true;
+                await WaitForDiceClick(Die.DieRect);
+                Die.isDiceAllowed = false;
+            }
+
             if (steps.TwoWays)
             {
                 List<GameGrid> Before = new();
@@ -394,13 +402,6 @@ namespace ReachTheEndGame
                 steps.Win = After.Contains(clicked);
                 selectedSection = clicked;
                 twoWayAlreadySelectedIt = true;
-            }
-
-            if (steps.RequireDiceAfter)
-            {
-                Die.isDiceAllowed = true;
-                await WaitForDiceClick(Die.DieRect);
-                Die.isDiceAllowed = false;
             }
 
             int MoveInt = steps.Win ? 1 : -1;

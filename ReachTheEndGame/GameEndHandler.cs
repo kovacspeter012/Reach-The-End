@@ -37,7 +37,7 @@ namespace ReachTheEndGame
 
         public GridBlank()
         {
-            GameEndHandler = new GameEndHandler() { Win = true, RequireDiceAfter = true, DiceMultiplyer = 1.0, ExtraSteps = 0, TwoWays = false, Message = "" };
+            GameEndHandler = new GameEndHandler() { Win = true, RequireDiceAfter = true, DiceMultiplyer = 1.0, ExtraSteps = 0, TwoWays = false, Message = "Pihenőre léptél, folytatáshoz dobj a kockával!" };
         }
     }
     public class GridBackwards : FakeWindow, IMiniGame

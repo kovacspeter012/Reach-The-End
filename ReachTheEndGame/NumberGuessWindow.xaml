@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ReachTheEndGame"
         mc:Ignorable="d"
-        Title="NumberGuessWindow" Height="300" Width="300"
+        Title="Számkitaláló" Height="300" Width="300" ResizeMode="NoResize"
         Name="window">
     <Window.Resources>
         <Style TargetType="Border">

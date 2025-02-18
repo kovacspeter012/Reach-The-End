@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ReachTheEndGame"
         mc:Ignorable="d"
-        Title="Aknakereső" Height="430" Width="320" ResizeMode="NoResize">
+        Title="Aknakereső" Height="430" Width="320" ResizeMode="NoResize"
+        Icon="Images/Main/blue.png">
     <Window.Resources>
         <Style TargetType="Label" x:Key="GameGridStyle">
             <Setter Property="Background" Value="#FF949494"/>

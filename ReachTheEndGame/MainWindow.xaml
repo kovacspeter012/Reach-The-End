@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ReachTheEndGame"
         mc:Ignorable="d"
-        Title="Reach The End" Height="660" Width="1000" ResizeMode="NoResize">
+        Title="Reach The End" Height="660" Width="1000" ResizeMode="NoResize" Icon="Images/Main/red.png">
     <Window.Resources>
         <Style TargetType="Border" x:Key="MainBorderStyle">
             <Setter Property="BorderBrush" Value="Black"/>
@@ -45,7 +45,7 @@
                 <local:SignsUC Text="Következő dobásnál dupla annyit kell lépni" Source="Images/Main/green.png" />
                 <local:SignsUC Text="Következő dobásnál a játékos választhat, hogy előre vagy hátra szeretne lépni" Source="Images/Main/purple.png" />
                 <local:SignsUC Text="Számkitaláló játék" Source="Images/Main/orange.png"/>
-                <local:SignsUC Text="Memória játék" Source="Images/Main/yellow.png"/>
+                <local:SignsUC Text="Memóriajáték" Source="Images/Main/yellow.png"/>
                 <local:SignsUC Text="Csapd le a vakondot! játék" Source="Images/Main/brown.png"/>
                 <local:SignsUC Text="Aknakereső játék" Source="Images/Main/blue.png"/>
 

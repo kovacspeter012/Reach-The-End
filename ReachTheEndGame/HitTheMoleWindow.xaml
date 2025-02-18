@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ReachTheEndGame"
         mc:Ignorable="d"
-        Title="Verjük a vakondot!" Height="540" Width="700" ResizeMode="NoResize"
+        Title="Verjük a vakondot!" Height="540" Width="700" ResizeMode="NoResize" Icon="Images/Main/brown.png"
         Name="window">
     <Border BorderBrush="Black" Background="LightGray" BorderThickness="3" Margin="6,6,6,6">
         <Grid>
